@@ -1,0 +1,55 @@
+name: RichillCapital.CopyTrader.Desktop CI
+
+on: 
+  push:
+    branches:
+      - master
+      - dev
+      
+  pull_request:
+    branches:
+      - master
+      - dev
+
+env:
+  NODE_VERSION: 22
+
+jobs:
+  build:
+    strategy:
+        fail-fast: false
+        matrix:
+          os: [windows-latest, macos-latest, ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+
+      - name: Setup webkit2gtk (${{ matrix.os }})
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y webkit2gtk-4.0
+
+      - name: Install Dependencies
+        run: |
+          npm i -g pnpm
+          pnpm i
+
+      - name: Build
+        run: |
+          pnpm run build:tauri
