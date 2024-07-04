@@ -57,8 +57,8 @@
 			{
 				"fullscreen": false,
 				"height": 600,
-				"resizable": true,
-				"title": "svelte",
+				"resizable": false,
+				"title": "Richill Capital - Copy Trader",
 				"width": 800
 			}
 		]
