@@ -4,6 +4,7 @@
 	"scripts": {
 		"dev:tauri": "tauri dev",
 		"dev": "vite dev",
+		"build:tauri": "tauri build",
 		"build": "vite build",
 		"preview": "vite preview",
 		"test": "npm run test:integration && npm run test:unit",
