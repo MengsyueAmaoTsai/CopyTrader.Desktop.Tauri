@@ -1,11 +1,11 @@
 name: RichillCapital.CopyTrader.Desktop CI
 
-on: 
+on:
   push:
     branches:
       - master
       - dev
-      
+
   pull_request:
     branches:
       - master
@@ -17,9 +17,9 @@ env:
 jobs:
   build:
     strategy:
-        fail-fast: false
-        matrix:
-          os: [windows-latest, macos-latest, ubuntu-latest]
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -42,8 +42,8 @@ jobs:
       - name: Setup webkit2gtk (${{ matrix.os }})
         if: matrix.os == 'ubuntu-latest'
         run: |
-            sudo apt-get update
-            sudo apt-get install -y webkit2gtk-4.0
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
 
       - name: Install Dependencies
         run: |
